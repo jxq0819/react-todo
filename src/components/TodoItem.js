@@ -1,43 +1,34 @@
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 import classnames from 'classnames'
 import TodoInput from './TodoInput'
 import PropTypes from 'prop-types'
 
-export default class TodoItem extends Component {
-  static propTypes = {
-    todo: PropTypes.object.isRequired,
-    editTodo: PropTypes.func.isRequired,
-    deleteTodo: PropTypes.func.isRequired,
-    completeTodo: PropTypes.func.isRequired
+function TodoItem(props) {
+
+  const [editing, setEditing] = useState(false)
+
+  const handleDoubleClick = () => {
+    setEditing(true)
   }
 
-  state = {
-    editing: false
-  }
-
-  handleDoubleClick = () => {
-    this.setState({ editing: true })
-  }
-
-  handleSave = (id, text) => {
+  const handleSave = (id, text) => {
     if (text.length === 0) {
-      this.props.deleteTodo(id)
+      props.deleteTodo(id)
     } else {
-      this.props.editTodo(id, text)
+      props.editTodo(id, text)
     }
-    this.setState({ editing: false })
+    setEditing(false)
   }
 
-  render() {
-    const {todo, completeTodo, deleteTodo} = this.props
+    const {todo, completeTodo, deleteTodo} = props
 
     let element
-    if (this.state.editing) {
+    if (editing) {
       element = (
         <TodoInput
           text={todo.text}
-          editing={this.state.editing}
-          onSave={(text) => this.handleSave(todo.id, text)}
+          editing={editing}
+          onSave={(text) => handleSave(todo.id, text)}
         />
       )
     } else {
@@ -49,7 +40,7 @@ export default class TodoItem extends Component {
             checked={todo.completed}
             onChange={() => completeTodo(todo.id)}
           />
-          <label onDoubleClick={this.handleDoubleClick}>{todo.text}</label>
+          <label onDoubleClick={handleDoubleClick}>{todo.text}</label>
           <button className="destroy" onClick={() => deleteTodo(todo.id)} />
         </div>
       )
@@ -58,10 +49,19 @@ export default class TodoItem extends Component {
     return (
       <li className={classnames({
         completed: todo.completed,
-        editing: this.state.editing
+        editing: editing
       })}>
         {element}
       </li>
     )
   }
+
+
+TodoItem.propTypes = {
+  todo: PropTypes.object.isRequired,
+  editTodo: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+  completeTodo: PropTypes.func.isRequired
 }
+
+export default TodoItem

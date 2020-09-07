@@ -24,4 +24,4 @@ Header.propTypes = {
   addTodo: PropTypes.func.isRequired
 }
 
-export default Header;
+export default Header

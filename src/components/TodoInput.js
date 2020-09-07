@@ -1,52 +1,53 @@
-import React, {Component} from 'react'
+import React, { useState } from 'react'
 import classnames from 'classnames'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
-class TodoInput extends Component {
-  static propTypes = {
-    onSave: PropTypes.func.isRequired,
-    text: PropTypes.string,
-    placeholder: PropTypes.string,
-    editing: PropTypes.bool,
-    newTodo: PropTypes.bool
-  }
+function TodoInput(props) {
 
-  state = {text: this.props.text || '' }
+  const [text, setText] = useState('')
 
-  handleSubmit = e => {
+  const handleSubmit = e => {
     const text = e.target.value.trim()
     if (e.which === 13) {
-      this.props.onSave(text)
-      if (this.props.newTodo) {
-        this.setState({text: ''})
+      props.onSave(text)
+      if (props.newTodo) {
+        setText('')
       }
     }
   }
 
-  handleChange = e => this.setState({text: e.target.value})
+  const handleChange = e => {
+    setText(e.target.value)
+  }
 
-  handleBlur = e => {
-    if (!this.props.newTodo) {
-      this.props.onSave(e.target.value)
+  const handleBlur = e => {
+    if (!props.newTodo) {
+      props.onSave(e.target.value)
     }
   }
 
-  render() {
     return (
       <input className={
         classnames({
-          edit: this.props.editing,
-          'new-todo': this.props.newTodo
+          edit: props.editing,
+          'new-todo': props.newTodo
         })}
              type="text"
-             placeholder={this.props.placeholder}
+             placeholder={props.placeholder}
              autoFocus="true"
-             value={this.state.text}
-             onBlur={this.handleBlur}
-             onChange={this.handleChange}
-             onKeyDown={this.handleSubmit} />
+             value={text}
+             onBlur={handleBlur}
+             onChange={handleChange}
+             onKeyDown={handleSubmit} />
     )
-  }
+}
+
+TodoInput.propTypes = {
+  onSave: PropTypes.func.isRequired,
+  text: PropTypes.string,
+  placeholder: PropTypes.string,
+  editing: PropTypes.bool,
+  newTodo: PropTypes.bool
 }
 
 export default TodoInput

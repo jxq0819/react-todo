@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -8,17 +8,10 @@ const FILTER_TITLES = {
   SHOW_COMPLETED: 'Completed'
 }
 
-class Footer extends Component {
-  static propTypes = {
-    completedCount: PropTypes.number.isRequired,
-    activeCount: PropTypes.number.isRequired,
-    filter: PropTypes.string.isRequired,
-    onClearCompleted: PropTypes.func.isRequired,
-    onShow: PropTypes.func.isRequired
-  }
+function Footer(props) {
 
-  renderTodoCount() {
-    const activeCount = this.props.activeCount
+  function renderTodoCount() {
+    const activeCount = props.activeCount
 
     const itemWord = activeCount === 1 ? 'item' : 'items'
 
@@ -30,9 +23,9 @@ class Footer extends Component {
     )
   }
 
-  renderFilterLink(filter) {
+  function renderFilterLink(filter) {
     const title = FILTER_TITLES[filter]
-    const {filter: selectedFilter, onShow} = this.props
+    const {filter: selectedFilter, onShow} = props
 
     return (
       <a
@@ -44,8 +37,8 @@ class Footer extends Component {
     )
   }
 
-  renderClearButton() {
-    const {completedCount, onClearCompleted} = this.props
+  function renderClearButton() {
+    const {completedCount, onClearCompleted} = props
     if (completedCount > 0) {
       return (
         <button className="clear-completed" onClick={onClearCompleted} >
@@ -55,30 +48,37 @@ class Footer extends Component {
     }
   }
 
-  renderFilterList() {
+  function renderFilterList() {
     return ['SHOW_ALL', 'SHOW_ACTIVE', 'SHOW_COMPLETED']
       .map(filter =>
         <li key={filter}>
-          {this.renderFilterLink(filter)}
+          {renderFilterLink(filter)}
         </li>
       )
   }
 
-  render() {
-    return (
-      <footer className="footer">
 
-        {this.renderTodoCount()}
+  return (
+    <footer className="footer">
 
-        <ul className="filters">
-          {this.renderFilterList()}
-        </ul>
+      {renderTodoCount()}
 
-        {this.renderClearButton()}
+      <ul className="filters">
+        {renderFilterList()}
+      </ul>
 
-      </footer>
-    )
-  }
+      {renderClearButton()}
+
+    </footer>
+  )
+}
+
+Footer.propTypes = {
+  completedCount: PropTypes.number.isRequired,
+  activeCount: PropTypes.number.isRequired,
+  filter: PropTypes.string.isRequired,
+  onClearCompleted: PropTypes.func.isRequired,
+  onShow: PropTypes.func.isRequired
 }
 
 export default Footer
