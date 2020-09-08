@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component, useState } from 'react'
 import Header from './Header'
 import MainSection from './MainSection'
 import { v4 as uuidv4 } from 'uuid'
@@ -11,77 +11,71 @@ const initialState = [{
   }
 ]
 
-class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      todos: initialState,
-      ID: uuidv4,
-    }
-  }
+function App(props) {
+  const [todos, setTodos] = useState(initialState)
 
-  addTodo = (userinput) => {
-    const todos = [{
-        id: this.state.todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
+  // const [ID, setID] = useState(uuidv4)
+
+  const addTodo = (userInput) => {
+    const newtodos = [{
+        id: todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
         completed: false,
-        text: userinput
+        text: userInput
       },
-      ...this.state.todos
+      ...todos
     ]
-    this.setState({todos})
+    setTodos(newtodos)
   }
 
-  deleteTodo = (id) => {
-    const todos = this.state.todos.filter(todo => todo.id !== id)
-    this.setState({todos})
+  const deleteTodo = (id) => {
+    const deltodos = todos.filter(todo => todo.id !== id)
+    setTodos(deltodos)
   }
 
-  editTodo = (id, newtext) => {
-    const todos = this.state.todos.map(todo =>
+  const editTodo = (id, newtext) => {
+    const edittodos = todos.map(todo =>
         todo.id === id ? {...todo, newtext} : todo
     )
-    this.setState({todos})
+    setTodos(edittodos)
   }
 
-  completeTodo = (id) => {
-    const todos = this.state.todos.map(todo =>
+  const completeTodo = (id) => {
+    const completetodos = todos.map(todo =>
         todo.id === id ? {...todo, completed: !todo.completed} : todo
     )
-    this.setState({todos})
+    setTodos(completetodos)
   }
 
-  completeAll = () => {
-    const areAllCompleted = this.state.todos.every(todo => todo.completed)
-    const todos = this.state.todos.map(todo => {
+  const completeAll = () => {
+    const areAllCompleted = todos.every(todo => todo.completed)
+    const alltodos = todos.map(todo => {
       return {...todo, completed: !areAllCompleted}
     })
-    this.setState({todos})
+    setTodos(alltodos)
   }
 
-  clearCompleted = () => {
-    const todos = this.state.todos.filter(todo => todo.completed === false)
-    this.setState({todos})
+  const clearCompleted = () => {
+    const claertodos = todos.filter(todo => todo.completed === false)
+    setTodos(claertodos)
   }
 
-  actions = {
-    addTodo: this.addTodo,
-    deleteTodo: this.deleteTodo,
-    editTodo: this.editTodo,
-    completeTodo: this.completeTodo,
-    completeAll: this.completeAll,
-    clearCompleted: this.clearCompleted
+  const actions = {
+    addTodo: addTodo,
+    deleteTodo: deleteTodo,
+    editTodo: editTodo,
+    completeTodo: completeTodo,
+    completeAll: completeAll,
+    clearCompleted: clearCompleted
   }
 
-  render() {
     return(
         <div>
           <h1>todos</h1>
-          <Header addTodo={this.actions.addTodo} />
-          <MainSection todos={this.state.todos} actions={this.actions} />
+          <Header addTodo={actions.addTodo} />
+          <MainSection todos={todos} actions={actions} />
           <Bottom />
         </div>
     )
-  }
 }
 
 export default App
