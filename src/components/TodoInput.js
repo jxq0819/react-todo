@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 
 function TodoInput(props) {
 
-  const [text, setText] = useState('')
+  const [text, setText] = useState(props.text || '')
 
   const handleSubmit = e => {
     const text = e.target.value.trim()
-    if (e.which === 13) {
+    if (e.key === 'Enter') {
       props.onSave(text)
       if (props.newTodo) {
         setText('')
@@ -26,20 +26,20 @@ function TodoInput(props) {
     }
   }
 
-    return (
-      <input className={
-        classnames({
-          edit: props.editing,
-          'new-todo': props.newTodo
-        })}
-             type="text"
-             placeholder={props.placeholder}
-             autoFocus="true"
-             value={text}
-             onBlur={handleBlur}
-             onChange={handleChange}
-             onKeyDown={handleSubmit} />
-    )
+  return (
+    <input className={
+      classnames({
+        edit: props.editing,
+        'new-todo': props.newTodo
+      })}
+         type="text"
+         placeholder={props.placeholder}
+         autoFocus="true"
+         value={text}
+         onBlur={handleBlur}
+         onChange={handleChange}
+         onKeyDown={handleSubmit} />
+  )
 }
 
 TodoInput.propTypes = {

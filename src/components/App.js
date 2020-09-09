@@ -1,26 +1,26 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import Header from './Header'
 import MainSection from './MainSection'
-import { v4 as uuidv4 } from 'uuid'
 import Bottom from './Bottom'
+import { v4 as uuidv4 } from 'uuid'
 
-const initialState = [{
+const initialState = [
+  {
     text: '',
     completed: false,
     id: 0
   }
 ]
 
-function App(props) {
+function App() {
   const [todos, setTodos] = useState(initialState)
 
-  // const [ID, setID] = useState(uuidv4)
-
-  const addTodo = (userInput) => {
-    const newtodos = [{
-        id: todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
+  const addTodo = (text) => {
+    const newtodos = [
+      {
+        id: uuidv4(),
         completed: false,
-        text: userInput
+        text: text
       },
       ...todos
     ]
@@ -32,9 +32,14 @@ function App(props) {
     setTodos(deltodos)
   }
 
-  const editTodo = (id, newtext) => {
-    const edittodos = todos.map(todo =>
-        todo.id === id ? {...todo, newtext} : todo
+  const editTodo = (id, text) => {
+    const edittodos = todos.map(
+      function(todo) {
+        if (todo.id === id) {
+          todo.text = text
+        }
+        return todo
+      }
     )
     setTodos(edittodos)
   }
@@ -55,8 +60,8 @@ function App(props) {
   }
 
   const clearCompleted = () => {
-    const claertodos = todos.filter(todo => todo.completed === false)
-    setTodos(claertodos)
+    const cleartodos = todos.filter(todo => todo.completed === false)
+    setTodos(cleartodos)
   }
 
   const actions = {
@@ -68,14 +73,14 @@ function App(props) {
     clearCompleted: clearCompleted
   }
 
-    return(
-        <div>
-          <h1>todos</h1>
-          <Header addTodo={actions.addTodo} />
-          <MainSection todos={todos} actions={actions} />
-          <Bottom />
-        </div>
-    )
+  return(
+    <div>
+      <h1>todos</h1>
+      <Header addTodo={actions.addTodo} />
+      <MainSection todos={todos} actions={actions} />
+      <Bottom />
+    </div>
+  )
 }
 
 export default App

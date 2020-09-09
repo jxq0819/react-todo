@@ -31,6 +31,7 @@ function TodoItem(props) {
           onSave={(text) => handleSave(todo.id, text)}
         />
       )
+
     } else {
       element = (
         <div className="view">

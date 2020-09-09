@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import TodoItem from './TodoItem'
 import Footer from './Footer'
 import PropTypes from 'prop-types'
@@ -53,27 +53,24 @@ function MainSection(props) {
     }
   }
 
+  const todos = props.todos
+  const filters = filter
+  const actions = props.actions
+  const filteredTodos = todos.filter(TODO_FILTERS[filters])
+  const completedCount = todos.reduce((count, todo) => {
+    return todo.completed ? count + 1 : count
+  }, 0)
 
-    const todos = props.todos
-    const filters = filter
-    const actions = props.actions
-
-    const filteredTodos = todos.filter(TODO_FILTERS[filters])
-    const completedCount = todos.reduce((count, todo) => {
-      return todo.completed ? count + 1 : count
-    }, 0)
-
-    return (
-      <section className="main">
-        {renderToggleAll(completedCount)}
-        <ul className="todo-list">
-          {filteredTodos.map(todo =>
-            <TodoItem key={todo.id} todo={todo} {...actions} />
-          )}
-        </ul>
-        {renderFooter(completedCount)}
-      </section>
-    )
+  return (
+    <section className="main">
+      {renderToggleAll(completedCount)}
+      <ul className="todo-list">
+        {filteredTodos.map(todo => <TodoItem key={todo.id} todo={todo} {...actions} />
+        )}
+      </ul>
+      {renderFooter(completedCount)}
+    </section>
+  )
 }
 
 MainSection.propTypes = {
