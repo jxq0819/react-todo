@@ -4,27 +4,22 @@ import MainSection from './MainSection'
 import Bottom from './Bottom'
 import { v4 as uuidv4 } from 'uuid'
 
-const initialState = [
-  {
-    text: '',
-    completed: false,
-    id: 0
-  }
-]
+const initialState = [{
+  id: null,
+  text: null,
+  completed: null,
+  }]
 
 function App() {
   const [todos, setTodos] = useState(initialState)
 
   const addTodo = (text) => {
-    const newtodos = [
-      {
+    const addtodos = [{
         id: uuidv4(),
         completed: false,
         text: text
-      },
-      ...todos
-    ]
-    setTodos(newtodos)
+    }, ...todos]
+    setTodos(addtodos)
   }
 
   const deleteTodo = (id) => {
@@ -77,7 +72,7 @@ function App() {
     <div>
       <h1>todos</h1>
       <Header addTodo={actions.addTodo} />
-      <MainSection todos={todos} actions={actions} />
+      <MainSection todos={todos.filter(todo => todo.id !== null)} actions={actions} />
       <Bottom />
     </div>
   )

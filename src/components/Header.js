@@ -9,15 +9,15 @@ const Header = ({addTodo}) => {
     }
   }
 
-    return (
-      <header className="header">
-          <TodoTextInput
-            newTodo
-            onSave={handleSave}
-            placeholder="What needs to be done?"
-          />
-      </header>
-    )
+  return (
+    <header className="header">
+      <TodoTextInput
+        newTodo
+        onSave={handleSave}
+        placeholder="What needs to be done?"
+      />
+    </header>
+  )
 }
 
 Header.propTypes = {
