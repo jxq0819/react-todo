@@ -17,7 +17,7 @@ function Footer (props) {
 
     return (
       <span className="todo-count">
-        <strong>{activeCount || 'No'}</strong>
+        <strong>{(activeCount || 'No') + ' '}</strong>
         {itemWord} left
       </span>
     )

@@ -64,6 +64,7 @@ function MainSection (props) {
   return (
     <section className="main">
       {renderToggleAll(completedCount)}
+      <label onClick={props.actions.completeAll}/>
       <ul className="todo-list">
         {filteredTodos.map(
           todo => <TodoItem key={todo.id} todo={todo} {...actions} />,
