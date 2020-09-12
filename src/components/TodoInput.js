@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 
-function TodoInput(props) {
+function TodoInput (props) {
 
   const [text, setText] = useState(props.text || '')
 
@@ -30,15 +30,15 @@ function TodoInput(props) {
     <input className={
       classnames({
         edit: props.editing,
-        'new-todo': props.newTodo
+        'new-todo': props.newTodo,
       })}
-         type="text"
-         placeholder={props.placeholder}
-         autoFocus="true"
-         value={text}
-         onBlur={handleBlur}
-         onChange={handleChange}
-         onKeyDown={handleSubmit} />
+           type="text"
+           placeholder={props.placeholder}
+           autoFocus="true"
+           value={text}
+           onBlur={handleBlur}
+           onChange={handleChange}
+           onKeyDown={handleSubmit}/>
   )
 }
 
@@ -47,7 +47,7 @@ TodoInput.propTypes = {
   text: PropTypes.string,
   placeholder: PropTypes.string,
   editing: PropTypes.bool,
-  newTodo: PropTypes.bool
+  newTodo: PropTypes.bool,
 }
 
 export default TodoInput

@@ -1,8 +1,8 @@
 import React from 'react'
 import TodoTextInput from './TodoInput'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
-const Header = ({addTodo}) => {
+const Header = ({ addTodo }) => {
   const handleSave = text => {
     if (text.length !== 0) {
       addTodo(text)
@@ -21,7 +21,7 @@ const Header = ({addTodo}) => {
 }
 
 Header.propTypes = {
-  addTodo: PropTypes.func.isRequired
+  addTodo: PropTypes.func.isRequired,
 }
 
 export default Header

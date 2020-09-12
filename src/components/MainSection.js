@@ -6,10 +6,10 @@ import PropTypes from 'prop-types'
 const TODO_FILTERS = {
   SHOW_ALL: () => true,
   SHOW_ACTIVE: todo => !todo.completed,
-  SHOW_COMPLETED: todo => todo.completed
+  SHOW_COMPLETED: todo => todo.completed,
 }
 
-function MainSection(props) {
+function MainSection (props) {
 
   const [filter, setFilter] = useState('SHOW_ALL')
 
@@ -21,7 +21,7 @@ function MainSection(props) {
     setFilter(filter)
   }
 
-  function renderToggleAll(completedCount) {
+  function renderToggleAll (completedCount) {
     const todos = props.todos
     const actions = props.actions
     if (todos.length > 0) {
@@ -36,8 +36,8 @@ function MainSection(props) {
     }
   }
 
-  function renderFooter(completedCount) {
-    const todos= props.todos
+  function renderFooter (completedCount) {
+    const todos = props.todos
     const filter = props.filter
     const activeCount = todos.length - completedCount
 
@@ -48,7 +48,7 @@ function MainSection(props) {
           activeCount={activeCount}
           filter={filter}
           onClearCompleted={handleClearCompleted}
-          onShow={handleShow} />
+          onShow={handleShow}/>
       )
     }
   }
@@ -65,7 +65,8 @@ function MainSection(props) {
     <section className="main">
       {renderToggleAll(completedCount)}
       <ul className="todo-list">
-        {filteredTodos.map(todo => <TodoItem key={todo.id} todo={todo} {...actions} />
+        {filteredTodos.map(
+          todo => <TodoItem key={todo.id} todo={todo} {...actions} />,
         )}
       </ul>
       {renderFooter(completedCount)}
@@ -75,7 +76,7 @@ function MainSection(props) {
 
 MainSection.propTypes = {
   todos: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
 }
 
 export default MainSection
