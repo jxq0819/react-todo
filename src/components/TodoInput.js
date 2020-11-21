@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import classnames from 'classnames'
-import PropTypes from 'prop-types'
+import { useState } from "react";
+import classnames from "classnames";
+import PropTypes from "prop-types";
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core'
+import { jsx, css } from "@emotion/core";
 
 const newtodoStyle = css`
-  {
+   {
     position: relative;
     margin: 0;
     width: 100%;
@@ -22,55 +22,54 @@ const newtodoStyle = css`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
-  {
+
+   {
     padding: 16px 16px 16px 60px;
     border: none;
     background: rgba(0, 0, 0, 0.003);
-    box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
+    box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
   }
-`
+`;
 
-function TodoInput (props) {
+function TodoInput(props) {
+  const [text, setText] = useState(props.text || "");
 
-  const [text, setText] = useState(props.text || '')
-
-  const handleSubmit = e => {
-    const text = e.target.value.trim()
-    if (e.key === 'Enter') {
-      props.onSave(text)
+  const handleSubmit = (e) => {
+    const text = e.target.value.trim();
+    if (e.key === "Enter") {
+      props.onSave(text);
       if (props.newTodo) {
-        setText('')
+        setText("");
       }
     }
-  }
+  };
 
-  const handleChange = e => {
-    setText(e.target.value)
-  }
+  const handleChange = (e) => {
+    setText(e.target.value);
+  };
 
-  const handleBlur = e => {
+  const handleBlur = (e) => {
     if (!props.newTodo) {
-      props.onSave(e.target.value)
+      props.onSave(e.target.value);
     }
-  }
+  };
 
   return (
-    <input className={
-      classnames({
-        'edit': props.editing,
-        'new-todo': props.newTodo,
+    <input
+      className={classnames({
+        edit: props.editing,
+        "new-todo": props.newTodo,
       })}
-           type="text"
-           placeholder={props.placeholder}
-           autoFocus="true"
-           value={text}
-           onBlur={handleBlur}
-           onChange={handleChange}
-           onKeyDown={handleSubmit}
-           css={newtodoStyle}
+      type="text"
+      placeholder={props.placeholder}
+      autoFocus="true"
+      value={text}
+      onBlur={handleBlur}
+      onChange={handleChange}
+      onKeyDown={handleSubmit}
+      css={newtodoStyle}
     />
-  )
+  );
 }
 
 TodoInput.propTypes = {
@@ -79,6 +78,6 @@ TodoInput.propTypes = {
   placeholder: PropTypes.string,
   editing: PropTypes.bool,
   newTodo: PropTypes.bool,
-}
+};
 
-export default TodoInput
+export default TodoInput;

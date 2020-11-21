@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import classnames from 'classnames'
-import TodoInput from './TodoInput'
-import PropTypes from 'prop-types'
+import { useState } from "react";
+import classnames from "classnames";
+import TodoInput from "./TodoInput";
+import PropTypes from "prop-types";
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core'
+import { jsx, css } from "@emotion/core";
 
 const todoItemStyle = css`
   .edit {
@@ -22,17 +22,17 @@ const todoItemStyle = css`
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
- }
- 
- .new-todo {
+  }
+
+  .new-todo {
     padding: 16px 16px 16px 60px;
     border: none;
     background: rgba(0, 0, 0, 0.003);
-    box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
- }
-`
+    box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+  }
+`;
 const detoryStyle = css`
-  {
+   {
     margin: 0;
     padding: 0;
     border: 0;
@@ -47,27 +47,27 @@ const detoryStyle = css`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-`
+`;
 
-function TodoItem (props) {
-  const [editing, setEditing] = useState(false)
+function TodoItem(props) {
+  const [editing, setEditing] = useState(false);
 
   const handleDoubleClick = () => {
-    setEditing(true)
-  }
+    setEditing(true);
+  };
 
   const handleSave = (id, text) => {
     if (text.length === 0) {
-      props.deleteTodo(id)
+      props.deleteTodo(id);
     } else {
-      props.editTodo(id, text)
+      props.editTodo(id, text);
     }
-    setEditing(false)
-  }
+    setEditing(false);
+  };
 
-  const { todo, completeTodo, deleteTodo } = props
+  const { todo, completeTodo, deleteTodo } = props;
 
-  let element
+  let element;
   if (editing) {
     element = (
       <TodoInput
@@ -75,8 +75,7 @@ function TodoItem (props) {
         editing={editing}
         onSave={(text) => handleSave(todo.id, text)}
       />
-    )
-
+    );
   } else {
     element = (
       <div className="view">
@@ -87,20 +86,26 @@ function TodoItem (props) {
           onChange={() => completeTodo(todo.id)}
         />
         <label onDoubleClick={handleDoubleClick}>{todo.text}</label>
-        <button className="destroy" onClick={() => deleteTodo(todo.id)}
-                css={detoryStyle}/>
+        <button
+          className="destroy"
+          onClick={() => deleteTodo(todo.id)}
+          css={detoryStyle}
+        />
       </div>
-    )
+    );
   }
 
   return (
-    <li className={classnames({
-      completed: todo.completed,
-      editing: editing,
-    })} css={todoItemStyle}>
+    <li
+      className={classnames({
+        completed: todo.completed,
+        editing: editing,
+      })}
+      css={todoItemStyle}
+    >
       {element}
     </li>
-  )
+  );
 }
 
 TodoItem.propTypes = {
@@ -108,6 +113,6 @@ TodoItem.propTypes = {
   editTodo: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
   completeTodo: PropTypes.func.isRequired,
-}
+};
 
-export default TodoItem
+export default TodoItem;
