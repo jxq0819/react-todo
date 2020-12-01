@@ -107,6 +107,7 @@ function Footer(props) {
     const { filter: selectedFilter, onShow } = props;
 
     return (
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
       <a
         className={classnames({ selected: filter === selectedFilter })}
         style={{ cursor: "pointer" }}
