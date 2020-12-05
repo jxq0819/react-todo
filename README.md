@@ -1,6 +1,6 @@
 # ToDo List Web Application
 
-This ToDo List Web Application was built with [React](https://reactjs.org/) and [Emotion](https://emotion.sh/docs/introduction). A live demonstration can be found [here](https://jxq0819.github.io/react-todo/).
+This ToDo List Web Application was built with [React](https://reactjs.org/) and [Emotion](https://emotion.sh/docs/introduction). A live demonstration can be found [here](https://jxq0819.github.io/react-todo/). The project is part of [TodoMVC](http://todomvc.com/).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
